@@ -30,7 +30,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     GameObject limbPos4;
 
+    [SerializeField]
+    Transform rightLegPos;
+    [SerializeField]
+    Transform leftLegPos;
+    [SerializeField]
+    Transform rightArmPos;
+
     bool limbAlreadyAttached = false;
+
+    bool limbAlreadyDetached = false;
 
     bool armAttached = false;
 
@@ -41,7 +50,9 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rightLegPos.transform.position = rightLeg.transform.position;
+        leftLegPos.transform.position = leftLeg.transform.position;
+        rightArmPos.transform.position = rightArm.transform.position;
     }
 
     // Update is called once per frame
@@ -67,7 +78,11 @@ public class PlayerMovement : MonoBehaviour
             limbAlreadyAttached = false;
         }
 
-        
+        if (limbAlreadyDetached == true)
+        {
+            currentSlot -= 1;
+            limbAlreadyDetached = false;
+        }
         
         //altering speed of skeleton
         if (leftLegAttached == true || rightLegAttached == true)
@@ -129,18 +144,34 @@ public class PlayerMovement : MonoBehaviour
             limbAlreadyAttached = true;
             rightLegAttached = true;
         }
-        if (Input.GetKeyDown(KeyCode.E) && currentSlot == 2 && rightLegAttached == false)
+        if (Input.GetKeyDown(KeyCode.R) && currentSlot == 2 && rightLegAttached == false)
         {
             rightLeg.transform.position = limbPos2.transform.position;
             limbAlreadyAttached = true;
             rightLegAttached = true;
         }
-        if (Input.GetKeyDown(KeyCode.E) && currentSlot == 3 && rightLegAttached == false)
+        if (Input.GetKeyDown(KeyCode.R) && currentSlot == 3 && rightLegAttached == false)
         {
             rightLeg.transform.position = limbPos3.transform.position;
             limbAlreadyAttached = true;
             rightLegAttached = true;
         }
 
+        //removing limbs
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            rightLeg.transform.position = rightLegPos.transform.position;
+            leftLeg.transform.position = leftLegPos.transform.position;
+            rightArm.transform.position = rightArmPos.transform.position;
+
+            rightLegAttached = false;
+            armAttached = false;
+            leftLegAttached = false;
+
+            currentSlot = 1;
+
+            speed = 5;
+        }
+        
     }
 }
