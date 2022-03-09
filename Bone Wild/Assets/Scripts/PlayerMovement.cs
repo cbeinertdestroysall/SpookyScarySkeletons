@@ -47,6 +47,14 @@ public class PlayerMovement : MonoBehaviour
 
     bool rightLegAttached = false;
 
+    public bool canGrabKey = false;
+
+    public bool hasKey = false;
+
+    public bool cannotEnter = false;
+
+    public bool canEnter = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -172,6 +180,52 @@ public class PlayerMovement : MonoBehaviour
 
             speed = 5;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canGrabKey == true)
+        {
+            hasKey = true;
+            canGrabKey = false;
+        }
+
+        Debug.Log(canGrabKey);
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Key")
+        {
+            canGrabKey = true;
+        }
         
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Key")
+        {
+            canGrabKey = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Door" && hasKey == false)
+        {
+            cannotEnter = true;
+        }
+
+        if (collision.gameObject.tag == "Door" && hasKey == true)
+        {
+            canEnter = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Door" && hasKey == false)
+        {
+            cannotEnter = false;
+        }
     }
 }
