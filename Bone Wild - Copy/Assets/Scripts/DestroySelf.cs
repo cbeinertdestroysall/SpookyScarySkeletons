@@ -15,7 +15,7 @@ public class DestroySelf : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.hasKey == true)
+        if (player.hasFirstKey == true)
         {
             Destroy(this.gameObject);
         }

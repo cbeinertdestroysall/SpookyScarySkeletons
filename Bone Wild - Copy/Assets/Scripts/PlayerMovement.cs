@@ -52,13 +52,18 @@ public class PlayerMovement : MonoBehaviour
 
     bool rightLegAttached = false;
 
-    public bool canGrabKey = false;
+    public bool canGrabFirstKey = false;
 
-    public bool hasKey = false;
+    public bool hasFirstKey = false;
 
     public bool cannotEnter = false;
 
     public bool canEnter = false;
+
+    public Lever1 lever1;
+
+    [SerializeField]
+    GameObject lockedDoor2;
 
     // Start is called before the first frame update
     void Start()
@@ -186,13 +191,19 @@ public class PlayerMovement : MonoBehaviour
             speed = 5;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canGrabKey == true)
+        if (Input.GetKeyDown(KeyCode.Space) && canGrabFirstKey == true)
         {
-            hasKey = true;
-            canGrabKey = false;
+            hasFirstKey = true;
+            canGrabFirstKey = false;
         }
 
-        Debug.Log(canGrabKey);
+        if (Input.GetKeyDown(KeyCode.Space) && lever1.canBeSwitched == true)
+        {
+            lockedDoor2.SetActive(false);
+            canEnter = true;
+        }
+
+        Debug.Log(canGrabFirstKey);
 
         if (leftLegAttached == true)
         {
@@ -216,29 +227,29 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Key")
+        if (collision.gameObject.tag == "Key1")
         {
-            canGrabKey = true;
+            canGrabFirstKey = true;
         }
         
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Key")
+        if (collision.gameObject.tag == "Key1")
         {
-            canGrabKey = false;
+            canGrabFirstKey = false;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Door" && hasKey == false)
+        if (collision.gameObject.tag == "Door" && hasFirstKey == false)
         {
             cannotEnter = true;
         }
 
-        if (collision.gameObject.tag == "Door" && hasKey == true)
+        if (collision.gameObject.tag == "Door" && hasFirstKey == true)
         {
             canEnter = true;
         }
@@ -246,7 +257,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Door" && hasKey == false)
+        if (collision.gameObject.tag == "Door" && hasFirstKey == false)
         {
             cannotEnter = false;
         }
