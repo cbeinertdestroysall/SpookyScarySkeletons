@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     bool rightLegAttached = false;
 
     public bool canGrabFirstKey = false;
+    public bool canGrabSecondKey = false;
     public bool canGrabThirdKey = false;
 
     public bool hasFirstKey = false;
@@ -62,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     public bool cannotEnter = false;
 
     public bool canEnter = false;
-
+    public bool canEnter2 = false;
     public bool canEnter3 = false;
 
     public Lever1 lever1;
@@ -73,6 +74,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     GameObject lockedDoor2;
+
+    [SerializeField]
+    GameObject lockedDoor3;
 
     [SerializeField]
     GameObject lockedDoor5;
@@ -216,10 +220,16 @@ public class PlayerMovement : MonoBehaviour
             canGrabFirstKey = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && canGrabSecondKey == true)
+        {
+            hasSecondKey = true;
+            canGrabSecondKey = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && canGrabThirdKey == true)
         {
             hasThirdKey = true;
-            
+            canGrabThirdKey = false;
         }
 
         //switching the first lever
@@ -277,6 +287,11 @@ public class PlayerMovement : MonoBehaviour
             canGrabFirstKey = true;
         }
 
+        if (collision.gameObject.tag == "Key2")
+        {
+            canGrabSecondKey = true;
+        }
+
         if (collision.gameObject.tag == "Key3")
         {
             canGrabThirdKey = true;
@@ -288,6 +303,11 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Key1")
         {
             canGrabFirstKey = false;
+        }
+
+        if (collision.gameObject.tag == "Key2")
+        {
+            canGrabSecondKey = false;
         }
 
         if (collision.gameObject.tag == "Key3")
@@ -306,6 +326,16 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Door" && hasFirstKey == true)
         {
             canEnter = true;
+        }
+
+        if (collision.gameObject.tag == "Door3" && hasSecondKey == false)
+        {
+            cannotEnter = true;
+        }
+
+        if (collision.gameObject.tag == "Door3" && hasSecondKey == true)
+        {
+            canEnter2 = true;
         }
 
         if (collision.gameObject.tag == "Door4" && hasFirstKey == false)

@@ -17,8 +17,10 @@ public class Info : MonoBehaviour
         yield return new WaitForSeconds(2);
         infoText.text = "";
         player.canEnter = false;
+        player.canEnter2 = false;
         player.canEnter3 = false;
         player.hasFirstKey = false;
+        player.hasSecondKey = false;
         player.hasThirdKey = false;
     }
 
@@ -34,6 +36,10 @@ public class Info : MonoBehaviour
         if (player.canGrabFirstKey == true)
         {
             infoText.text = "Press space to obtain key";
+        } else if (player.canGrabSecondKey == true)
+        {
+            infoText.text = "Press space to obtain key";
+        
         }else if (player.canGrabThirdKey == true)
         {
                 infoText.text = "Press space to obtain key";
@@ -54,6 +60,11 @@ public class Info : MonoBehaviour
             infoText.text = "You got the key";
         }
 
+        if (player.hasSecondKey == true)
+        {
+            infoText.text = "You got the key";
+        }
+
         if (player.hasThirdKey == true)
         {
             infoText.text = "You got the key";
@@ -65,6 +76,13 @@ public class Info : MonoBehaviour
             infoText.text = "You unlocked the door";
             StartCoroutine(YouGotTheKey());
             
+        }
+
+        if (player.canEnter2 == true)
+        {
+            infoText.text = "You unlocked the door";
+            StartCoroutine(YouGotTheKey());
+
         }
 
         if (player.canEnter3 == true)
