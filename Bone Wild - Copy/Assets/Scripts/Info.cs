@@ -10,6 +10,7 @@ public class Info : MonoBehaviour
     public PlayerMovement player;
     public Lever1 lever1;
     public Lever2 lever2;
+    public Lever3 lever3;
 
     IEnumerator YouGotTheKey()
     {
@@ -83,13 +84,24 @@ public class Info : MonoBehaviour
             infoText.text = "Press space to pull lever";
         }
 
-        if (lever1.canBeSwitched == true && player.canEnter == true)
+        if (lever3.canBeSwitched == true && player.canEnter3 == false)
+        {
+            infoText.text = "Press space to pull lever";
+        }
+
+        if (lever1.canBeSwitched == true && player.canEnter3 == true)
         {
             infoText.text = "You unlocked the door";
             StartCoroutine(YouGotTheKey());
         }
 
         if (lever2.canBeSwitched == true && player.canEnter == true)
+        {
+            infoText.text = "You unlocked the door";
+            StartCoroutine(YouGotTheKey());
+        }
+
+        if (lever3.canBeSwitched == true && player.canEnter == true)
         {
             infoText.text = "You unlocked the door";
             StartCoroutine(YouGotTheKey());

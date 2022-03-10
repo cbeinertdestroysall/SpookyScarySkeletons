@@ -69,11 +69,16 @@ public class PlayerMovement : MonoBehaviour
 
     public Lever2 lever2;
 
+    public Lever3 lever3;
+
     [SerializeField]
     GameObject lockedDoor2;
 
     [SerializeField]
     GameObject lockedDoor5;
+
+    [SerializeField]
+    GameObject lockedDoor6;
 
     // Start is called before the first frame update
     void Start()
@@ -228,6 +233,12 @@ public class PlayerMovement : MonoBehaviour
             canEnter = true;
         }
 
+        //switching the third lever
+        if (Input.GetKeyDown(KeyCode.Space) && lever3.canBeSwitched == true)
+        {
+            lockedDoor6.SetActive(false);
+            canEnter = true;
+        }
 
         //Debug.Log(canGrabFirstKey);
 
