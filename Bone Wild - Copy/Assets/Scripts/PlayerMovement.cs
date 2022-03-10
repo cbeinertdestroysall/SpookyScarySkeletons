@@ -31,6 +31,11 @@ public class PlayerMovement : MonoBehaviour
     GameObject limbPos4;
 
     [SerializeField]
+    GameObject leftLegVisual;
+    [SerializeField]
+    GameObject rightLegVisual;
+
+    [SerializeField]
     Transform rightLegPos;
     [SerializeField]
     Transform leftLegPos;
@@ -188,6 +193,24 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Debug.Log(canGrabKey);
+
+        if (leftLegAttached == true)
+        {
+            leftLegVisual.SetActive(false);
+        }
+        else 
+        {
+            leftLegVisual.SetActive(true);
+        }
+
+        if (rightLegAttached == true)
+        {
+            rightLegVisual.SetActive(false);
+        }
+        else 
+        {
+            rightLegVisual.SetActive(true);
+        }
 
     }
 
