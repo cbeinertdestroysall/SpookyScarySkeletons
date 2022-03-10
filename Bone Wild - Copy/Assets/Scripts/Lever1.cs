@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Lever1 : MonoBehaviour
 {
-    public bool canBeSwitched = false; 
+    public bool canBeSwitched = false;
+    public GameObject lockedDoor2;
+    public PlayerMovement player;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,7 @@ public class Lever1 : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             canBeSwitched = true;
+            Debug.Log("Lever 2 can be switched");
         }
     }
 
