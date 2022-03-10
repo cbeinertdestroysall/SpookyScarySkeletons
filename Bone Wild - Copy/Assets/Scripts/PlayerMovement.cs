@@ -80,6 +80,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     GameObject lockedDoor6;
 
+    [SerializeField]
+    GameObject tutorial;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -238,6 +241,11 @@ public class PlayerMovement : MonoBehaviour
         {
             lockedDoor6.SetActive(false);
             canEnter = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            tutorial.SetActive(true);
         }
 
         //Debug.Log(canGrabFirstKey);
