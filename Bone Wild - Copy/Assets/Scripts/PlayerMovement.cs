@@ -53,17 +53,27 @@ public class PlayerMovement : MonoBehaviour
     bool rightLegAttached = false;
 
     public bool canGrabFirstKey = false;
+    public bool canGrabThirdKey = false;
 
     public bool hasFirstKey = false;
+    public bool hasSecondKey = false;
+    public bool hasThirdKey = false;
 
     public bool cannotEnter = false;
 
     public bool canEnter = false;
 
+    public bool canEnter3 = false;
+
     public Lever1 lever1;
+
+    public Lever2 lever2;
 
     [SerializeField]
     GameObject lockedDoor2;
+
+    [SerializeField]
+    GameObject lockedDoor5;
 
     // Start is called before the first frame update
     void Start()
@@ -191,19 +201,35 @@ public class PlayerMovement : MonoBehaviour
             speed = 5;
         }
 
+        //grabbing the first key
         if (Input.GetKeyDown(KeyCode.Space) && canGrabFirstKey == true)
         {
             hasFirstKey = true;
             canGrabFirstKey = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && canGrabThirdKey == true)
+        {
+            hasThirdKey = true;
+            
+        }
+
+        //switching the first lever
         if (Input.GetKeyDown(KeyCode.Space) && lever1.canBeSwitched == true)
         {
             lockedDoor2.SetActive(false);
             canEnter = true;
         }
 
-        Debug.Log(canGrabFirstKey);
+        //switching the second lever
+        if (Input.GetKeyDown(KeyCode.Space) && lever2.canBeSwitched == true)
+        {
+            lockedDoor5.SetActive(false);
+            canEnter = true;
+        }
+
+
+        //Debug.Log(canGrabFirstKey);
 
         if (leftLegAttached == true)
         {
@@ -231,7 +257,11 @@ public class PlayerMovement : MonoBehaviour
         {
             canGrabFirstKey = true;
         }
-        
+
+        if (collision.gameObject.tag == "Key3")
+        {
+            canGrabThirdKey = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -239,6 +269,11 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Key1")
         {
             canGrabFirstKey = false;
+        }
+
+        if (collision.gameObject.tag == "Key3")
+        {
+            canGrabThirdKey = false;
         }
     }
 
@@ -252,6 +287,16 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Door" && hasFirstKey == true)
         {
             canEnter = true;
+        }
+
+        if (collision.gameObject.tag == "Door4" && hasFirstKey == false)
+        {
+            cannotEnter = true;
+        }
+
+        if (collision.gameObject.tag == "Door4" && hasThirdKey == true)
+        {
+            canEnter3 = true;
         }
     }
 
